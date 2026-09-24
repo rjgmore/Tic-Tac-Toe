@@ -11,9 +11,48 @@
 <body style = "text-align:center;">
 
     <h1> Tic-Tac-Toe </h1>
-<input type="text" class="a" maxlength="1" style = "text-align:center;"> <input type="text" class="a" maxlength="1" style = "text-align:center;"> <input type="text" class="a" maxlength="1" style = "text-align:center;"> <br>
-<input type="text" class="a" maxlength="1" style = "text-align:center;"> <input type="text" class="a" maxlength="1" style = "text-align:center;"> <input type="text" class="a" maxlength="1" style = "text-align:center;"> <br>
- <input type="text" class="a" maxlength="1" style = "text-align:center;"> <input type="text" class="a" maxlength="1" style = "text-align:center;"> <input type="text" class="a" maxlength="1" style = "text-align:center;"> <br>
+<input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <br>
+<input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <br>
+ <input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <input readonly type="text" class="a" maxlength="1" style = "text-align:center;"> <br>
+
+ <script>
+    let player = 'X';
+    function clickCallback(event) {
+        let input = event.currentTarget;
+        if (input.value === '') {
+            input.value = player;
+            player = player === 'X' ? 'O' : 'X';
+        }
+        checkforWin();
+    }
+    function checkforWin() {
+        let inputs = document.querySelectorAll('input.a');
+        let winningCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+        for (let combination of winningCombinations) {
+            let a = inputs[combination[0]].value;
+            let b = inputs[combination[1]].value;
+            let c = inputs[combination[2]].value;
+            if (a !== '' && a === b && b === c) {
+                alert(a + ' wins!');
+                resetGame();
+                return;
+            }
+        }
+    }
+    let inputs = document.querySelectorAll('input.a');
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('click', clickCallback);
+    }
+ </script>
 
 </body>
 </html>
